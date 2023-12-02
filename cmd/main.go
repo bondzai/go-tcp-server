@@ -36,14 +36,13 @@ func (s *Server) Start() {
 
 	for {
 		conn, err := s.listener.Accept()
-
-		// Check if the error is due to an interrupt signal
-		if opErr, ok := err.(*net.OpError); ok && opErr.Err.Error() == "use of closed network connection" {
-			fmt.Println("Server has been interrupted. Shutting down...")
-			break
-		}
-
 		if err != nil {
+			// Check if the error is due to an interrupt signal
+			if opErr, ok := err.(*net.OpError); ok && opErr.Err.Error() == "use of closed network connection" {
+				fmt.Println("Server has been interrupted. Shutting down...")
+				break
+			}
+
 			fmt.Printf("Error accepting connection: %s\n", err)
 			continue
 		}
