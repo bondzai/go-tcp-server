@@ -9,13 +9,11 @@ import (
 	"syscall"
 )
 
-// Server represents the TCP server.
 type Server struct {
 	listener net.Listener
 	wg       sync.WaitGroup
 }
 
-// NewServer creates a new instance of the TCP server.
 func NewServer(address string) (*Server, error) {
 	listener, err := net.Listen("tcp", address)
 	if err != nil {
